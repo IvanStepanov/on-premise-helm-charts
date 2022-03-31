@@ -59,7 +59,8 @@ spec:
         - name: api
           image: {{ required "A valid .Values.dgctlDockerRegistry entry required" .Values.dgctlDockerRegistry }}/{{ .Values.api.repository }}:{{ .Values.api.tag }}
           imagePullPolicy: {{ .Values.api.pullPolicy }}
-          command: ["Sapphire2", "--exec"]
+#          command: ["Sapphire2", "--exec"]
+          command: ["bash", "/etc/2gis/run.sh"]
           resources:
             {{- toYaml .Values.api.resources | nindent 12 }}
           lifecycle:
@@ -114,6 +115,8 @@ spec:
                 path: Sapphire2.xml
               - key: nginx_config
                 path: nginx.conf
+              - key: search_api_script
+                path: run.sh
         - name: search-api-data
           emptyDir: {}
         - name: search-run

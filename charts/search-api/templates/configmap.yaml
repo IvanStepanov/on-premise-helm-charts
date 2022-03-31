@@ -7,6 +7,12 @@ metadata:
   labels:
     {{- include "search_api.labels" . | nindent 4 }}
 data:
+  search_api_script: |
+    #!/bin/bash
+    ls -l /run
+    rm -rf /run/Sapphire2.pid
+    Sapphire2 --exec
+    sleep 60
   search_api_config: |
     <?xml version='1.0' encoding='UTF-8' ?>
     <sapphire>
