@@ -96,7 +96,6 @@ portal:
   s3proxy:
     enabled: false
     scheme: http
-    #host
   image:
     repository: 2gis-on-premise/gis_platform_portal
     tag: '2022-04-13'
