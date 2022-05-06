@@ -87,8 +87,10 @@ server {
     location ~ ^/sp/layers/admin.satellite_imagery/tile/(.*)$ {
         proxy_pass {{ .Values.portal.s3proxy.scheme }}://s3-upstream/{{ .Values.spcore.s3.bucket }}/localTiles_admin.satellite_imagery/$1.png;
         proxy_set_header Host {{ .Values.spcore.s3.host }};
+        {{- if .Values.portal.cache.enabled }}
         proxy_cache gis-platform;
         proxy_cache_valid {{ .Values.portal.cache.valid }};
+        {{- end }}
     }
 
     {{- end }}
