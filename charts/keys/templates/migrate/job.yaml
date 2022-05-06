@@ -27,6 +27,11 @@ spec:
           image: {{ required "A valid .Values.dgctlDockerRegistry entry required" .Values.dgctlDockerRegistry }}/{{ .Values.backend.image.repository }}:{{ .Values.backend.image.tag }}
           imagePullPolicy: {{ .Values.imagePullPolicy }}
           command: [ "zuul-migrate" ]
+          readinessProbe:
+            exec:
+              command: [ "zuul-migrate", "--help" ]
+            initialDelaySeconds: {{ .Values.migrate.initialDelaySeconds }}
+            failureThreshold: 1
           resources:
             {{- toYaml .Values.migrate.resources | nindent 12 }}
           env:
